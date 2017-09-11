@@ -1,16 +1,14 @@
-# Criar banco de dados
+Desenvolvimento de um quiz utilizando PHP.
 
-Criar
-./vendor/bin/doctrine-module orm:schema-tool:create
 
-Update
-./vendor/bin/doctrine-module orm:schema-tool:update --force
+Ferramentas: ZendFramework, Doctrine, Boostrap, AngularJS, Jquery
 
-Apagar
-./vendor/bin/doctrine-module orm:schema-tool:drop
 
-Criar entidades (Atenção, informar o modulo onde serão geradas as entidades)
-./vendor/bin/doctrine-module  orm:generate:entities dump/
 
-Criar repositorios (Atenção, informar o modulo onde serão gerados os repositórios)
-./vendor/bin/doctrine-module  orm:generate:repositories  dump/
+Para inicialização do projeto rodar os seguintes comandos na raiz do projeto.
+1) composer update (atualiza o composer e as dependencias do projeto)
+2) ./vendor/bin/doctrine-module orm:schema-tool:create (inicializa a estrutura do banco de dados)
+
+
+
+felipe.devel@gmail.com
