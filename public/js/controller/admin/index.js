@@ -19,11 +19,12 @@ objAplication.controller('adminQuizController', function($scope,$http) {
                 $scope.arrQuiz = objRetorno.data.arrQuiz;
             },
             function erro(objRetorno){
-
+                alert('Ocorreu um erro ao carregar a lista de quiz. Tente novamente mais tarde.')
             }
         );
     }
 
+    $scope.loadQuiz();
 
     $scope.clearForm = function()
     {
@@ -34,20 +35,32 @@ objAplication.controller('adminQuizController', function($scope,$http) {
             create_at:null,
             update_at:null
         }
+
+        $('#formQuiz').modal('hide');
     }
 
 
     $scope.saveQuiz = function()
     {
-        console.log($scope.objQuiz);
+
         $http.post('/admin/save',$scope.objQuiz).then(
             function sucesso(objRetorno){
-
+                if(objRetorno.data.sn_status == true){
+                    $scope.clearForm();
+                    $scope.loadQuiz();
+                };
             },
             function erro(objRetorno){
                 alert('Desculpe ocorreu um erro e não foi possível salvar esse quiz.');
             }
         )
+    }
+
+    $scope.setEdit = function(objQuiz)
+    {
+
+        $scope.objQuiz = objQuiz;
+        $('#formQuiz').modal('show');
     }
 
 });
