@@ -38,7 +38,11 @@ return [
             'admin' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/admin[/:action]',
+                    'route' => '/admin[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-z][a-zA-z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ],
                     'defaults' => [
                         'controller' => Controller\AdminController::class,
                         'action' => 'index',

@@ -53,4 +53,15 @@ class AdminController extends AbstractController {
 
         return new JsonModel($arrRetorno);
     }
+
+
+
+    public function questionAction(){
+
+        $quiz_id   = $this->params()->fromRoute('id');
+
+
+        $arrRetorno['id'] = $quiz_id;
+        return new ViewModel($arrRetorno);
+    }
 }
