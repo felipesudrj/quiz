@@ -1,36 +1,56 @@
-<div class="row">
-    <div class="col-md-6">
-        <form action="" method="POST" role="form">
-            <legend>Question</legend>
+<section ng-app="AppAngular" ng-controller="adminQuizController">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="" method="POST" role="form">
+                <legend>Question</legend>
 
-            <div class="form-group">
-                <label for="">Subject</label>
-                <textarea
-                    type="text"
-                    class="form-control"
-                    id=""
-                    placeholder="Subject"
-                    rows="8">
-                </textarea>
-            </div>
+                <div class="form-group">
+                    <label for="">Subject</label>
+                    <textarea
+                        type="text"
+                        class="form-control"
+                        id=""
+                        placeholder="Subject"
+                        rows="8">
+                    </textarea>
+                </div>
 
-            <div class="form-group">
-                <label for="">Type</label>
+                <div class="form-group">
+                    <label for="">Type</label>
 
-                <select class="form-control" id="" ng-options="value.id as value.name for value in arrTypes">
+                    <select class="form-control" id="" ng-options="value.id as value.name for value in arrTypes">
 
-                </select>
-            </div>
+                    </select>
+                </div>
 
 
 
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="submit" class="btn btn-warning">Clear</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-warning">Clear</button>
+            </form>
+        </div>
     </div>
-</div>
 
 
-<div class="row">
-
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Questions</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <th>#</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
