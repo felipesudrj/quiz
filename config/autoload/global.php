@@ -13,7 +13,13 @@
 use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
 
 return [
-    'doctrine' => [
+
+    'php_settings'=>[
+        'date.timezone' => 'UTC',
+    ],
+
+
+    'doctrines' => [
         'connection' => [
             'orm_default' => [
                 'driverClass' => PDOMySqlDriver::class,
@@ -30,5 +36,7 @@ return [
             ],
         ],
     ],
+
+
 
 ];
