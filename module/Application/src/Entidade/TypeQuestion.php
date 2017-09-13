@@ -5,8 +5,7 @@ namespace Application\Entidade;
 /**
  * TypeQuestion
  */
-class TypeQuestion
-{
+class TypeQuestion {
     /**
      * @var string
      */
@@ -17,7 +16,6 @@ class TypeQuestion
      */
     private $id;
 
-
     /**
      * Set name
      *
@@ -25,8 +23,7 @@ class TypeQuestion
      *
      * @return TypeQuestion
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -37,8 +34,7 @@ class TypeQuestion
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -47,9 +43,17 @@ class TypeQuestion
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
-}
 
+    /**
+     * ToArray
+     */
+    public function toArray() {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+        );
+    }
+}

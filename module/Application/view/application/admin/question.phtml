@@ -1,4 +1,15 @@
+<?
+    $this->inlineScript()
+        ->appendFile($this->basePath('js/controller/admin/question.js'));
+
+?>
 <section ng-app="AppAngular" ng-controller="adminQuizController">
+
+<?php foreach($arrTypes as $arrType): ?>
+
+    <span ng-init="createType('<?= $arrType['name'];?>',<?= $arrType['id'];?>)"
+<?php endforeach;?>
+
     <div class="row">
         <div class="col-md-6">
             <form action="" method="POST" role="form">
@@ -10,6 +21,7 @@
                         type="text"
                         class="form-control"
                         id=""
+                        ng-model="formQuestion.subject"
                         placeholder="Subject"
                         rows="8">
                     </textarea>
@@ -18,15 +30,19 @@
                 <div class="form-group">
                     <label for="">Type</label>
 
-                    <select class="form-control" id="" ng-options="value.id as value.name for value in arrTypes">
+                    <select
+                        ng-model="formQuestion.type_id"
+                        class="form-control"
+                        id=""
+                        ng-options="value.id as value.name for value in arrType">
 
                     </select>
                 </div>
 
 
 
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="submit" class="btn btn-warning">Clear</button>
+                <button type="button" class="btn btn-primary" ng-click="saveQuestion()">Save</button>
+                <button type="button" class="btn btn-warning">Clear</button>
             </form>
         </div>
     </div>

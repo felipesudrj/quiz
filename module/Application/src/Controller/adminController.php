@@ -60,8 +60,17 @@ class AdminController extends AbstractController {
 
         $quiz_id   = $this->params()->fromRoute('id');
 
+        $objTypes = $this->getRepository(\Application\Entidade\TypeQuestion::class)
+                ->findAll();
+
+        $arrTypes = [];
+        foreach($objTypes as $objType){
+            $arrTypes[] = $objType->toArray();
+        }
+
 
         $arrRetorno['id'] = $quiz_id;
+        $arrRetorno['arrTypes'] = $arrTypes;
         return new ViewModel($arrRetorno);
     }
 }
