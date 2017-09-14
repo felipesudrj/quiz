@@ -7,10 +7,10 @@
 
 <?php foreach($arrTypes as $arrType): ?>
 
-    <span ng-init="createType('<?= $arrType['name'];?>',<?= $arrType['id'];?>)"
+    <span ng-init="setArrType('<?php echo $arrType['name'];?>',<?php echo $arrType['id'];?>)"/>
 <?php endforeach;?>
 
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-md-6">
             <form action="" method="POST" role="form">
                 <legend>Question</legend>
@@ -48,7 +48,7 @@
     </div>
 
 
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-md-12">
             <h3>Questions</h3>
             <table class="table table-bordered">

@@ -17,7 +17,7 @@ objAplication.controller('adminQuizController', function($scope,$http) {
 
     $scope.arrType = []
 
-    $scope.createType = function(ds_name,cd_id)
+    $scope.setArrType = function(ds_name,cd_id)
     {
         var arrType = {
             id:cd_id,
