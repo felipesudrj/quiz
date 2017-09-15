@@ -16,8 +16,10 @@
         <option name="fixed"/>
       </options>
     </field>
+
     <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
     <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
+
     <many-to-one field="quiz" target-entity="Application\Entidade\Quiz" fetch="LAZY">
       <join-columns>
         <join-column name="quiz_id" referenced-column-name="id"/>

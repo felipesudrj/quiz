@@ -167,5 +167,19 @@ class Question
     {
         return $this->type;
     }
+
+
+    public function toArray()
+    {
+        return array(
+            'subject' => $this->getSubject(),
+            'create_at' => $this->getCreatedAt()->format('Y-m-d'),
+            'update_at' => $this->getUpdatedAt()->format('Y-m-d'),
+            'id' => $this->getId(),
+            'quiz' => $this->getQuiz()->getId(),
+            'type' => $this->getType()->getId(),
+            'type_description' => $this->getType()->getName(),
+        );
+    }
 }
 

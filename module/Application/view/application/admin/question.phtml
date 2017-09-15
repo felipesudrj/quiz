@@ -5,10 +5,11 @@
 ?>
 <section ng-app="AppAngular" ng-controller="adminQuizController">
 
-<?php foreach($arrTypes as $arrType): ?>
-
+    <?php foreach($arrTypes as $arrType): ?>
     <span ng-init="setArrType('<?php echo $arrType['name'];?>',<?php echo $arrType['id'];?>)"/>
-<?php endforeach;?>
+    <?php endforeach;?>
+    <span ng-init="question_id = <?php echo $arrType['id'];?>"/>
+    <span ng-init="loadQuestion()"/>
 
     <div class="row-fluid">
         <div class="col-md-6">
@@ -56,14 +57,16 @@
                     <th>#</th>
                     <th>Subject</th>
                     <th>Type</th>
-                    <th></th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr ng-repeat="(key, value) in arrQuestion">
+                        <td>{{value.id}}</td>
+                        <td>{{value.subject}}</td>
+                        <td>{{value.type_description}}</td>
+                        <td>
+
+                        </td>
                     </tr>
                 </tbody>
             </table>

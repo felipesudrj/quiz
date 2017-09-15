@@ -71,7 +71,7 @@ class AdminController extends AbstractController {
         return new ViewModel($arrRetorno);
     }
 
-    public function questionSaveAction() {
+    public function saveQuestionAction() {
         $sn_status = false;
         $ds_mensagem = null;
         $objRetorno = null;
@@ -81,11 +81,48 @@ class AdminController extends AbstractController {
 
             $arrDados = $this->getArrPost();
 
+            $arrDados['quiz_id'] = $quiz_id;
+
             $this->getRepository(\Application\Entidade\Question::class)
                 ->doSave(null, $arrDados);
 
         } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
+        }
 
+        $arrRetorno['sn_status'] = $sn_status;
+        $arrRetorno['ds_mensagem'] = $ds_mensagem;
+        $arrRetorno['objeto'] = $objRetorno;
+
+        return new JsonModel($arrRetorno);
+    }
+
+    public function loadQuestionAction() {
+        $sn_status = false;
+        $ds_mensagem = null;
+        $objRetorno = null;
+
+        try {
+            $quiz_id = $this->params()->fromRoute('id');
+
+            $objQuestions = $this->getRepository(\Application\Entidade\Question::class)
+                ->findBy(
+                    array(
+                        'quiz' => $quiz_id,
+                    )
+                );
+
+            $arrQuestion = [];
+
+            foreach ($objQuestions as $cd_indice => $objQuestion) {
+                $arrQuestion[$cd_indice] = $objQuestion->toArray();
+
+            }
+
+            $arrRetorno['arrQuestion'] = $arrQuestion;
+            $sn_status = true;
+        } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
         }
 
         $arrRetorno['sn_status'] = $sn_status;
