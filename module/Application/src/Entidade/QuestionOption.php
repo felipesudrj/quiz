@@ -5,8 +5,7 @@ namespace Application\Entidade;
 /**
  * QuestionOption
  */
-class QuestionOption
-{
+class QuestionOption {
     /**
      * @var string
      */
@@ -37,6 +36,7 @@ class QuestionOption
      */
     private $question;
 
+    private $question_id;
 
     /**
      * Set answer
@@ -45,8 +45,7 @@ class QuestionOption
      *
      * @return QuestionOption
      */
-    public function setAnswer($answer)
-    {
+    public function setAnswer($answer) {
         $this->answer = $answer;
 
         return $this;
@@ -57,8 +56,7 @@ class QuestionOption
      *
      * @return string
      */
-    public function getAnswer()
-    {
+    public function getAnswer() {
         return $this->answer;
     }
 
@@ -69,8 +67,7 @@ class QuestionOption
      *
      * @return QuestionOption
      */
-    public function setIsCorrect($isCorrect)
-    {
+    public function setIsCorrect($isCorrect) {
         $this->isCorrect = $isCorrect;
 
         return $this;
@@ -81,8 +78,7 @@ class QuestionOption
      *
      * @return integer
      */
-    public function getIsCorrect()
-    {
+    public function getIsCorrect() {
         return $this->isCorrect;
     }
 
@@ -91,11 +87,17 @@ class QuestionOption
      *
      * @param \DateTime $createdAt
      *
-     * @return QuestionOption
+     * @return Quiz
      */
     public function setCreatedAt($createdAt)
     {
-        $this->createdAt = $createdAt;
+
+        if ( !empty($createdAt) )
+        {
+            $dt_data = str_replace('/', '-', $createdAt);
+
+            $this->$createdAt = new \DateTime(date('Y-m-d H:i:s', strtotime($dt_data)));
+        }
 
         return $this;
     }
@@ -107,6 +109,10 @@ class QuestionOption
      */
     public function getCreatedAt()
     {
+        if ($this->createdAt instanceof \DateTime)
+        {
+            return $this->createdAt->format('d/m/Y H:i:s');
+        }
         return $this->createdAt;
     }
 
@@ -115,11 +121,16 @@ class QuestionOption
      *
      * @param \DateTime $updatedAt
      *
-     * @return QuestionOption
+     * @return Quiz
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = $updatedAt;
+        if ( !empty($updatedAt) )
+        {
+            $dt_data = str_replace('/', '-', $updatedAt);
+
+            $this->$updatedAt = new \DateTime(date('Y-m-d', strtotime($dt_data)));
+        }
 
         return $this;
     }
@@ -131,6 +142,10 @@ class QuestionOption
      */
     public function getUpdatedAt()
     {
+        if ($this->updatedAt instanceof \DateTime)
+        {
+            return $this->updatedAt->format('d/m/Y H:i:s');
+        }
         return $this->updatedAt;
     }
 
@@ -139,8 +154,7 @@ class QuestionOption
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -151,8 +165,7 @@ class QuestionOption
      *
      * @return QuestionOption
      */
-    public function setQuestion(\Application\Entidade\Question $question = null)
-    {
+    public function setQuestion(\Application\Entidade\Question $question = null) {
         $this->question = $question;
 
         return $this;
@@ -163,9 +176,39 @@ class QuestionOption
      *
      * @return \Application\Entidade\Question
      */
-    public function getQuestion()
-    {
+    public function getQuestion() {
         return $this->question;
     }
-}
 
+    /**
+     * @return mixed
+     */
+    public function getQuestionId() {
+        return $this->question_id;
+    }
+
+    /**
+     * @param mixed $question_id
+     *
+     * @return self
+     */
+    public function setQuestionId($question_id) {
+        $this->question_id = $question_id;
+
+        return $this;
+    }
+
+    /**
+     * Retorna o toArray
+     */
+    public function toArray() {
+        return array(
+            'id' => $this->getId(),
+            'answer' => $this->getAnswer(),
+            'is_correct' => $this->getIsCorrect(),
+            'create_at' => $this->getCreatedAt(),
+            'update_at' => $this->getUpdatedAt(),
+            'question_id' => $this->getQuestionId(),
+        );
+    }
+}

@@ -37,6 +37,7 @@ class Question
      */
     private $type;
 
+    private $quiz_id;
 
     /**
      * Set subject
@@ -180,6 +181,26 @@ class Question
             'type' => $this->getType()->getId(),
             'type_description' => $this->getType()->getName(),
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuizId()
+    {
+        return $this->quiz_id;
+    }
+
+    /**
+     * @param mixed $quiz_id
+     *
+     * @return self
+     */
+    public function setQuizId($quiz_id)
+    {
+        $this->quiz_id = $quiz_id;
+
+        return $this;
     }
 }
 

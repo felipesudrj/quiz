@@ -11,6 +11,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
+
     <field name="answer" type="string" column="answer" length="255" nullable="false">
       <options>
         <option name="fixed"/>
@@ -21,6 +22,13 @@
         <option name="unsigned"/>
       </options>
     </field>
+
+    <field name="question_id" type="integer" column="question_id" nullable="true">
+        <options>
+            <option name="default">0</option>
+        </options>
+    </field>
+
     <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
     <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
     <many-to-one field="question" target-entity="Application\Entidade\Question" fetch="LAZY">

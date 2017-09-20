@@ -108,7 +108,7 @@ class AdminController extends AbstractController {
             $objQuestions = $this->getRepository(\Application\Entidade\Question::class)
                 ->findBy(
                     array(
-                        'quiz' => $quiz_id,
+                        'quiz_id' => $quiz_id,
                     )
                 );
 
@@ -128,6 +128,160 @@ class AdminController extends AbstractController {
         $arrRetorno['sn_status'] = $sn_status;
         $arrRetorno['ds_mensagem'] = $ds_mensagem;
         $arrRetorno['objeto'] = $objRetorno;
+
+        return new JsonModel($arrRetorno);
+    }
+
+    public function loadQuestionOptionsAction() {
+        $sn_status = false;
+        $ds_mensagem = null;
+        $objRetorno = null;
+
+        try {
+            $quiz_id = $this->params()->fromRoute('id');
+            $arrDados = $this->getArrPost();
+
+            $objQuestions = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->findBy(
+                    array(
+                        'question_id' => $arrDados['id'],
+                    )
+                );
+
+            $arrQuestionOption = [];
+
+            foreach ($objQuestions as $cd_indice => $objQuestion) {
+                $arrQuestionOption[$cd_indice] = $objQuestion->toArray();
+            }
+
+            $arrRetorno['arrQuestionOption'] = $arrQuestionOption;
+            $sn_status = true;
+        } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
+        }
+
+        $arrRetorno['sn_status'] = $sn_status;
+        $arrRetorno['ds_mensagem'] = $ds_mensagem;
+        $arrRetorno['objeto'] = $objRetorno;
+
+        return new JsonModel($arrRetorno);
+    }
+
+    public function addQuestionOptionsAction() {
+        $sn_status = false;
+        $ds_mensagem = null;
+        $objRetorno = null;
+
+        try {
+
+            $quiz_id = $this->params()->fromRoute('id');
+            $arrDados = $this->getArrPost();
+
+            $objQuestionOption = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->findBy(
+                    array(
+                        'id' => $arrDados['id'],
+                    )
+                );
+
+            $arrDados['is_correct'] = 0;
+            $arrDados['create_at'] = date('d/m/Y');
+
+            $objSalvo = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->doSave($objQuestionOption, $arrDados);
+
+            $objRetorno = $objSalvo->toArray();
+
+            $sn_status = true;
+        } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
+        }
+
+        $arrRetorno['sn_status'] = $sn_status;
+        $arrRetorno['ds_mensagem'] = $ds_mensagem;
+        $arrRetorno['objRetorno'] = $objRetorno;
+
+        return new JsonModel($arrRetorno);
+    }
+
+    public function removeQuestionOptionsAction() {
+        $sn_status = false;
+        $ds_mensagem = null;
+        $objRetorno = null;
+
+        try {
+
+            $quiz_id = $this->params()->fromRoute('id');
+            $arrDados = $this->getArrPost();
+
+            $objQuestionOption = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->findOneBy(
+                    array(
+                        'id' => $arrDados['id'],
+                    )
+                );
+
+            if (empty($objQuestionOption)) {
+                throw new \Exception("Nenhum selecionado", 1);
+            }
+
+            $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->delete($objQuestionOption);
+
+
+
+            $sn_status = true;
+        } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
+        }
+
+        $arrRetorno['sn_status'] = $sn_status;
+        $arrRetorno['ds_mensagem'] = $ds_mensagem;
+        $arrRetorno['objRetorno'] = $objRetorno;
+
+        return new JsonModel($arrRetorno);
+    }
+
+    public function correctQuestionOptionsAction() {
+        $sn_status = false;
+        $ds_mensagem = null;
+        $objRetorno = null;
+
+        try {
+
+            $quiz_id = $this->params()->fromRoute('id');
+            $arrDados = $this->getArrPost();
+
+            $objQuestionOption = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->findOneBy(
+                    array(
+                        'id' => $arrDados['id'],
+                    )
+                );
+
+            if (empty($objQuestionOption)) {
+                throw new \Exception("Nenhum selecionado", 1);
+            }
+
+            $arrDados['is_correct'] = ($objQuestionOption->getIsCorrect()==0)?'1':'0';
+
+
+
+            $objSalvo = $this->getRepository(\Application\Entidade\QuestionOption::class)
+                ->doSave($objQuestionOption, $arrDados);
+
+
+
+            $objRetorno = $objSalvo->toArray();
+
+            $sn_status = true;
+        } catch (\Exception $objException) {
+            $ds_mensagem = $objException->getMessage();
+        }
+
+        $arrRetorno['sn_status'] = $sn_status;
+        $arrRetorno['ds_mensagem'] = $ds_mensagem;
+        $arrRetorno['objRetorno'] = $objRetorno;
 
         return new JsonModel($arrRetorno);
     }

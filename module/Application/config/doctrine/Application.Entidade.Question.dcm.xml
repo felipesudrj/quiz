@@ -17,6 +17,8 @@
       </options>
     </field>
 
+    <field name="quiz_id" type="integer" column="quiz_id" nullable="false"/>
+
     <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
     <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
 
